@@ -1,0 +1,7 @@
+<h1>This is the blog articles home page.</h1>
+{% for article in article_list %}
+  <p>
+    <a href="{% url 'article-detail' article.id %}">{{article.title}}</a>
+  </p>
+{% endfor %}
+<a href="{% url 'article-create' %}">Create Article</a>

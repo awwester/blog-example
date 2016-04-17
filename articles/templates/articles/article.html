@@ -1,0 +1,9 @@
+<h1>{{article}}</h1>
+<p><i>{{article.headline}}</i></p>
+{{article.body | safe}}
+
+<a href="{% url 'blog-home' %}">Blog Home</a>
+<a href="{% url 'article-update' article.id %}">Update Article</a>
+<form method="POST" action="{% url 'article-delete' article.id %}">
+   {% csrf_token %}<input type="submit" value="DELETE">
+</form>
