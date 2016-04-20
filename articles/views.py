@@ -1,6 +1,6 @@
 from django.core.urlresolvers import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, DeleteView, \
-                                 UpdateView
+                                 UpdateView, RedirectView
 
 from .models import Article
 from .forms import ArticleForm
@@ -9,6 +9,10 @@ from .forms import ArticleForm
 class BlogHomeListView(ListView):
     template_name = "articles/articles_home.html"
     model = Article
+
+
+class BlogHomeRedirectView(RedirectView):
+    url = reverse_lazy('blog-home')
 
 
 class ArticleDetailView(DetailView):
