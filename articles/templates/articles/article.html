@@ -5,5 +5,5 @@
 <a href="{% url 'blog-home' %}">Blog Home</a>
 <a href="{% url 'article-update' article.id %}">Update Article</a>
 <form method="POST" action="{% url 'article-delete' article.id %}">
-   {% csrf_token %}<input type="submit" value="DELETE">
+   {% csrf_token %}<input type="submit" name="delete" value="DELETE">
 </form>

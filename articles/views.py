@@ -1,39 +1,63 @@
 from django.core.urlresolvers import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, DeleteView, \
-                                 UpdateView
+from django.contrib.auth.models import User
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
 
 from .models import Article
 from .forms import ArticleForm
 
 
-class BlogHomeListView(ListView):
-    template_name = "articles/articles_home.html"
-    model = Article
+def blog_home(request):
+    article_list = Article.objects.all()
+    return render(request, "articles/articles_home.html",
+        context={'article_list': article_list})
 
 
-class ArticleDetailView(DetailView):
-    template_name = "articles/article.html"
-    model = Article
+def article_detail(request, pk):
+    article = Article.objects.get(id=pk)
+    return render(request, "articles/article.html", context={'article': article})
 
 
-class ArticleCreateView(CreateView):
-    template_name = "articles/article_create.html"
-    form_class = ArticleForm
+def article_create(request):
+    if request.method == "POST":
+        form = ArticleForm(request.POST, request.FILES)
 
-    def form_valid(self, form):
-        """
-        Assign the author to the request.user
-        """
-        form.instance.author = self.request.user
-        return super(ArticleCreateView, self).form_valid(form)
+        if form.is_valid():
+            user = User.objects.get(username=request.user.username)
+            instance = form.save(commit=False)
+            instance.author = user
+            instance.save()
+            return HttpResponseRedirect(form.instance.get_absolute_url())
+    else:
+        form = ArticleForm()
+
+    return render(request, "articles/article_create.html", context={'form': form})
 
 
-class ArticleDeleteView(DeleteView):
-    model = Article
+def article_delete(request, pk):
     success_url = reverse_lazy('blog-home')
+    article = Article.objects.get(id=pk)
+
+    if request.method == "POST" and "delete" in request.POST:
+        article.delete()
+        return HttpResponseRedirect(success_url)
+    else:
+        return HttpResponseRedirect(article.get_absolute_url())
 
 
-class ArticleUpdateView(UpdateView):
-    template_name = "articles/article_update.html"
-    model = Article
-    form_class = ArticleForm
+def article_update(request, pk):
+    article = Article.objects.get(id=pk)
+
+    if request.method == "POST":
+        form = ArticleForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            user = User.objects.get(username=request.user.username)
+            instance = form.save(commit=False)
+            instance.author = user
+            instance.save()
+            return HttpResponseRedirect(instance.get_absolute_url())
+    else:
+        form = ArticleForm(instance=article)
+
+    return render(request, "articles/article_update.html", context={'form': form})
