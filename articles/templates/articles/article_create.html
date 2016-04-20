@@ -1,5 +1,9 @@
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Submit" />
-</form>
+{% extends 'articles/articles_base.html' %}
+
+{% block container %}
+  <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Submit" />
+  </form>
+{% endblock %}

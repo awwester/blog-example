@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Django Class Based Views Rock</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+    <style>
+      .title {
+        text-align: center;
+        font-weight: 200;
+      }
+    </style>
+  </head>
+  <body>
+    {% block body %}
+      <div class="container">
+        {% block container %}{% endblock %}
+      </div>
+    {% endblock %}
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js" />
+  </body>
+</html>

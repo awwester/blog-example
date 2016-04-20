@@ -1,7 +1,11 @@
-<h1>This is the blog articles home page.</h1>
-{% for article in article_list %}
-  <p>
-    <a href="{% url 'article-detail' article.id %}">{{article.title}}</a>
-  </p>
-{% endfor %}
-<a href="{% url 'article-create' %}">Create Article</a>
+{% extends 'articles/articles_base.html' %}
+
+{% block container %}
+  <h3 class="title">All Articles</h3>
+  <div class="collection">
+    {% for article in article_list %}
+        <a class="collection-item" href="{% url 'article-detail' article.id %}">{{article.title}}</a>
+    {% endfor %}
+  </div>
+  <a class="btn right" href="{% url 'article-create' %}">Create Article</a>
+{% endblock %}

@@ -1,9 +1,19 @@
-<h1>{{article}}</h1>
-<p><i>{{article.headline}}</i></p>
-{{article.body | safe}}
+{% extends 'articles/articles_base.html' %}
 
-<a href="{% url 'blog-home' %}">Blog Home</a>
-<a href="{% url 'article-update' article.id %}">Update Article</a>
-<form method="POST" action="{% url 'article-delete' article.id %}">
-   {% csrf_token %}<input type="submit" value="DELETE">
-</form>
+{% block container %}
+  <h2 class="title">{{article}}</h2>
+  <div class="card">
+    <div class="card-content">
+      <p class="center-align"><i>{{article.headline}}</i></p>
+      <hr>
+      {{article.body | safe}}
+    </div>
+    <div class="card-action">
+      <a class="btn-flat" href="{% url 'blog-home' %}">Blog Home</a>
+      <form class="right" method="POST" action="{% url 'article-delete' article.id %}">
+         {% csrf_token %}<input class="btn red darken-2" type="submit" value="DELETE">
+      </form>
+      <a class="btn-flat right" href="{% url 'article-update' article.id %}">Update</a>
+    </div>
+  </div>
+{% endblock %}
