@@ -49,7 +49,7 @@ def article_update(request, pk):
     article = Article.objects.get(id=pk)
 
     if request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES)
+        form = ArticleForm(request.POST, request.FILES, instance=article)
 
         if form.is_valid():
             user = User.objects.get(username=request.user.username)
