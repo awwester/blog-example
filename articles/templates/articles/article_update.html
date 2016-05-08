@@ -8,7 +8,7 @@
       {{ form.as_p }}
     </div>
     <div class="card-action">
-      <a class="btn-flat" href="{% url article.get_absolute_url }">Cancel</a>
+      <a class="btn-flat" href="{{ article.get_absolute_url }}">Cancel</a>
       <input class="btn" type="submit" value="Update" />
     </div>
   </form>
