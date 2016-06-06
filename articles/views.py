@@ -9,6 +9,13 @@ from .forms import ArticleForm
 class BlogHomeListView(ListView):
     template_name = "articles/articles_home.html"
     model = Article
+    paginate_by = 3
+
+    def get_context_data(self, **kwargs):
+        "add range template context variable that we can loop through pages"
+        context = super(BlogHomeListView, self).get_context_data(**kwargs)
+        context['range'] = range(context["paginator"].num_pages)
+        return context
 
 
 class BlogHomeRedirectView(RedirectView):
