@@ -4,7 +4,7 @@
   <h3 class="title">All Articles</h3>
   <div class="collection">
     {% for article in article_list %}
-        <a class="collection-item" href="{% url 'article-detail' article.id %}">{{article.title}}</a>
+      <a class="collection-item" href="{% url 'article-detail' article.id %}">{{article.title}} - <i>{{article.author}}</i></a>
     {% endfor %}
   </div>
 
@@ -21,7 +21,7 @@
           <a href="/blog/?page={{forloop.counter}}">{{forloop.counter}}</a>
         </li>
       {% endfor %}
-      
+
       {% if page_obj.has_next %}
         <li class="waves-effect">
           <a href="/blog/?page={{ page_obj.next_page_number }}">Next</a>

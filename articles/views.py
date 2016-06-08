@@ -3,12 +3,12 @@ from django.views.generic import ListView, DetailView, CreateView, DeleteView, \
                                  UpdateView, RedirectView
 
 from .models import Article
+from .mixins import PublicArticlesMixin, UserAuthorMixin, AuthRequiredMixin
 from .forms import ArticleForm
 
 
-class BlogHomeListView(ListView):
+class BlogHomeListView(PublicArticlesMixin, ListView):
     template_name = "articles/articles_home.html"
-    model = Article
     paginate_by = 3
 
     def get_context_data(self, **kwargs):
@@ -22,12 +22,11 @@ class BlogHomeRedirectView(RedirectView):
     url = reverse_lazy('blog-home')
 
 
-class ArticleDetailView(DetailView):
+class ArticleDetailView(PublicArticlesMixin, DetailView):
     template_name = "articles/article.html"
-    model = Article
 
 
-class ArticleCreateView(CreateView):
+class ArticleCreateView(AuthRequiredMixin, CreateView):
     template_name = "articles/article_create.html"
     form_class = ArticleForm
 
@@ -39,12 +38,12 @@ class ArticleCreateView(CreateView):
         return super(ArticleCreateView, self).form_valid(form)
 
 
-class ArticleDeleteView(DeleteView):
+class ArticleDeleteView(UserAuthorMixin, DeleteView):
     model = Article
     success_url = reverse_lazy('blog-home')
 
 
-class ArticleUpdateView(UpdateView):
+class ArticleUpdateView(UserAuthorMixin, UpdateView):
     template_name = "articles/article_update.html"
     model = Article
     form_class = ArticleForm
