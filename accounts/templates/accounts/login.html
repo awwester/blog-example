@@ -1,0 +1,16 @@
+{% extends "articles/articles_base.html" %}
+
+{% block body %}
+  <div class="row">
+    <div class="card col s4 offset-s4" style="margin-top: 35px;">
+      <h2 class="title">Login</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" style="margin: 15px; float:right;" class="waves-effect waves-light btn">
+          Go
+        </button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

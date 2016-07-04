@@ -7,5 +7,7 @@ from articles.views import BlogHomeRedirectView
 urlpatterns = [
     url(r'^$', BlogHomeRedirectView.as_view()),
     url(r'^admin/', admin.site.urls),
+
     url(r'^blog/', include("articles.urls")),
+    url(r'^accounts/', include("accounts.urls")),
 ]
