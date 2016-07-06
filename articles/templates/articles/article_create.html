@@ -2,9 +2,11 @@
 
 {% block container %}
   <h3 class="title">Create New Article</h3>
-  <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input class="btn" type="submit" value="Create" />
-  </form>
+  <div class="card" style="padding: 15px;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn" type="submit" value="Create" />
+    </form>
+  </div>
 {% endblock %}
